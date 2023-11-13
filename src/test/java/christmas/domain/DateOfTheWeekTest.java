@@ -41,4 +41,13 @@ class DateOfTheWeekTest {
         Assertions.assertThat(nextDateOfTheWeek).isEqualTo(expectedDate);
     }
 
+    @ParameterizedTest
+    @CsvSource(value = {"MONDAY:true", "FRIDAY:false"}, delimiter = ':')
+    @DisplayName("주어진 Date가 평일인지 확인하는 메소드")
+    void checkIsItWeekDay(DateOfTheWeek date, boolean expectedResult) {
+        boolean weekDay = date.isWeekDay();
+
+        Assertions.assertThat(weekDay).isEqualTo(expectedResult);
+    }
+
 }
