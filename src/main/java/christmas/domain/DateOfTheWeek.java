@@ -4,8 +4,7 @@ import christmas.constant.WeekDaysAndWeekEnds;
 
 import java.util.Arrays;
 
-import static christmas.constant.WeekDaysAndWeekEnds.WEEK_DAYS;
-import static christmas.constant.WeekDaysAndWeekEnds.WEEK_ENDS;
+import static christmas.constant.WeekDaysAndWeekEnds.*;
 
 public enum DateOfTheWeek {
     MONDAY(1, "월료일", WEEK_DAYS),
@@ -36,12 +35,16 @@ public enum DateOfTheWeek {
 
     public DateOfTheWeek calculateNextDateOfTheWeek() {
         int tempNextIndex = index + 1;
-        if(index + 1 == 8) tempNextIndex = 1;
+        if (index + 1 == 8) tempNextIndex = 1;
         Integer nextIndex = tempNextIndex;
 
         return Arrays.stream(DateOfTheWeek.values())
                 .filter(date -> date.getIndex().equals(nextIndex))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public boolean isWeekDay() {
+        return weekdayType.equals(WEEK_DAYS);
     }
 }
