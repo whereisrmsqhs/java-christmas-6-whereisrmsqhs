@@ -16,11 +16,19 @@ public enum Menu {
     RED_WINE(60000, DRINK),
     CHAMPAGNE(25000, DRINK);
 
-    private int price;
+    private Integer price;
     private MenuCategory type;
 
     Menu(int price, MenuCategory type) {
         this.price = price;
         this.type = type;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public MenuCategory getType() {
+        return type;
     }
 }
