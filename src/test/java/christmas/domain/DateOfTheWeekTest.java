@@ -19,13 +19,9 @@ class DateOfTheWeekTest {
     @MethodSource("generateDateOfTheWeekAndDays")
     @DisplayName("일요일 혹은 25일 당일은 특별 할인이 적용돠는 날이다.")
     void setSpecialDay(DateOfTheWeek dateOfTheWeek, Integer day, boolean expectedResult) {
-        // given
         DateOfTheWeek date = dateOfTheWeek;
-
-        // when
         boolean isItSpecialDay = date.isSpecialDay(day);
 
-        // then
         Assertions.assertThat(isItSpecialDay).isEqualTo(expectedResult);
     }
 
@@ -35,6 +31,14 @@ class DateOfTheWeekTest {
                 Arguments.of(MONDAY, 4, false),
                 Arguments.of(MONDAY, 25, true)
         );
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"MONDAY:TUESDAY", "SUNDAY:MONDAY"}, delimiter = ':')
+    @DisplayName("지금 요일이 주어졌을 때, 다음 요일을 반환하는 메소드")
+    void convertToNextDateOfTheWeek(DateOfTheWeek current, DateOfTheWeek expectedDate) {
+        DateOfTheWeek nextDateOfTheWeek = current.calculateNextDateOfTheWeek();
+        Assertions.assertThat(nextDateOfTheWeek).isEqualTo(expectedDate);
     }
 
 }
