@@ -30,4 +30,14 @@ class MyOrderTest {
         Assertions.assertThat(price.convertToOutputType()).isEqualTo(expectedResult);
     }
 
+    @ParameterizedTest
+    @CsvSource(value = {"티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:4,046", "티본스테이크-2,바비큐립-1:6,069"}, delimiter = ':')
+    @DisplayName("주말 할인은 주문 내역중 메인 메뉴 하나당 2023원 할인, 주말에는 총 엄마나 할인하는지 찾는 기능 테스트")
+    void weekEndTotalDiscountAmount(String textOrder, String expectedResult) {
+        MyOrder myOrder = new MyOrder(textOrder);
+        Price price = myOrder.calculateDiscountInWeekEnd();
+
+        Assertions.assertThat(price.convertToOutputType()).isEqualTo(expectedResult);
+    }
+
 }
