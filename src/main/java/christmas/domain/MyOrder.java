@@ -1,12 +1,27 @@
 package christmas.domain;
 
+import java.util.EnumMap;
 import java.util.Map;
 
-public class MyMenu {
+import static christmas.constant.NumbersOrSymbols.*;
+import static christmas.domain.Menu.findMyMenu;
 
-    private final Map<Menu, Integer> myOrderedMenus;
+public class MyOrder {
 
-    public MyMenu(Map<Menu, Integer> myOrderedMenus) {
-        this.myOrderedMenus = myOrderedMenus;
+    private static final Map<Menu, Integer> myAllOrderedMenus = new EnumMap<>(Menu.class);
+
+    public MyOrder(String myOrderedMenus) {
+        saveMyOrders(myOrderedMenus);
+    }
+
+    private void saveMyOrders(String myOrderedMenus) {
+        String[] eachFoodOrder = myOrderedMenus.split(DIVIDE_EACH_ORDERED_MENU);
+        for (String eachOrder : eachFoodOrder) {
+            int dashIndex = eachOrder.indexOf(DIVIDE_FOOD_NUMBER);
+            Menu myOrderedFood = findMyMenu(eachOrder.substring(0, dashIndex-1));
+            Integer myOrderFoodNumber = Integer.valueOf(eachOrder.substring(dashIndex));
+
+            myAllOrderedMenus.put(myOrderedFood, myOrderFoodNumber);
+        }
     }
 }
