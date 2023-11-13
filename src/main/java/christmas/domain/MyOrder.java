@@ -18,10 +18,19 @@ public class MyOrder {
         String[] eachFoodOrder = myOrderedMenus.split(DIVIDE_EACH_ORDERED_MENU);
         for (String eachOrder : eachFoodOrder) {
             int dashIndex = eachOrder.indexOf(DIVIDE_FOOD_NUMBER);
-            Menu myOrderedFood = findMyMenu(eachOrder.substring(0, dashIndex-1));
-            Integer myOrderFoodNumber = Integer.valueOf(eachOrder.substring(dashIndex));
+            Menu myOrderedFood = findMyMenu(eachOrder.substring(0, dashIndex));
+            Integer myOrderFoodNumber = Integer.valueOf(eachOrder.substring(dashIndex+1));
 
             myAllOrderedMenus.put(myOrderedFood, myOrderFoodNumber);
         }
     }
+
+    public Price calculateTotalAmountBeforeDiscount() {
+        Integer totalAmount = 0;
+        for (Menu menu : myAllOrderedMenus.keySet()) {
+            totalAmount += menu.calculateEachMenuAmount(myAllOrderedMenus.get(menu));
+        }
+        return new Price(totalAmount);
+    }
+
 }
