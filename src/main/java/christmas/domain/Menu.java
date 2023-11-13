@@ -1,34 +1,43 @@
-package christmas.enums;
+package christmas.domain;
 
-import static christmas.enums.MenuCategory.*;
+import christmas.constant.MenuCategory;
+
+import java.util.Arrays;
+
+import static christmas.constant.MenuCategory.*;
 
 public enum Menu {
-    MUSHROOM_SOUP(6000, APPETIZER),
-    TAPAS(5500, APPETIZER),
-    CAESAR_SALAD(8000, APPETIZER),
-    T_BONE_STEAK(55000, MAIN),
-    BBQ_RIBS(54000, MAIN),
-    SEAFOOD_PASTA(35000, MAIN),
-    CHRISTMAS_PASTA(25000, MAIN),
-    CHOCOLATE_CAKE(15000, DESSERT),
-    ICE_CREAM(5000, DESSERT),
-    ZERO_COKE(3000, DRINK),
-    RED_WINE(60000, DRINK),
-    CHAMPAGNE(25000, DRINK);
+    MUSHROOM_SOUP("양송이수프", 6000, APPETIZER),
+    TAPAS("양송이수프", 5500, APPETIZER),
+    CAESAR_SALAD("양송이수프", 8000, APPETIZER),
+    T_BONE_STEAK("티본스테이크", 55000, MAIN),
+    BBQ_RIBS("바비큐립", 54000, MAIN),
+    SEAFOOD_PASTA("해산물파스타", 35000, MAIN),
+    CHRISTMAS_PASTA("크리스마스파스타", 25000, MAIN),
+    CHOCOLATE_CAKE("초코케이크", 15000, DESSERT),
+    ICE_CREAM("아이스크림", 5000, DESSERT),
+    ZERO_COKE("제로콜라", 3000, DRINK),
+    RED_WINE("레드와인", 60000, DRINK),
+    CHAMPAGNE("샴페인", 25000, DRINK);
 
-    private Integer price;
-    private MenuCategory type;
+    private final String name;
+    private final Integer price;
+    private final MenuCategory type;
 
-    Menu(int price, MenuCategory type) {
+    Menu(String name, Integer price, MenuCategory type) {
+        this.name = name;
         this.price = price;
         this.type = type;
     }
 
-    public Integer getPrice() {
-        return price;
+    public String getName() {
+        return name;
     }
 
-    public MenuCategory getType() {
-        return type;
+    public static Menu findMyMenu(String myOrderedFood) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getName().equals(myOrderedFood))
+                .findFirst()
+                .orElse(null);
     }
 }
