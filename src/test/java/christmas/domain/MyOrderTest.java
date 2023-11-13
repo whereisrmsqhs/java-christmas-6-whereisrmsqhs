@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +18,16 @@ class MyOrderTest {
         Price totalAmountBeforeDiscount = myOrder.calculateTotalAmountBeforeDiscount();
 
         Assertions.assertThat(totalAmountBeforeDiscount.convertToOutputType()).isEqualTo(expectedResult);
+    }
 
+    @ParameterizedTest
+    @CsvSource(value = {"티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1:4,046"}, delimiter = ':')
+    @DisplayName("평일 할인은 내 주문 내역중 디저트 하나당 2023원 할인, 그래서 총 얼마 할인하는지 찾는 기능")
+    void weekDayTotalDiscountAmount(String textOrder, String expectedResult) {
+        MyOrder myOrder = new MyOrder(textOrder);
+        Price price = myOrder.calculateDiscountInWeekDay();
+
+        Assertions.assertThat(price.convertToOutputType()).isEqualTo(expectedResult);
     }
 
 }

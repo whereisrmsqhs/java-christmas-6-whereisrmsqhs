@@ -33,4 +33,25 @@ public class MyOrder {
         return new Price(totalAmount);
     }
 
+    public Price calculateDiscountInWeekDay() {
+        Integer totalDiscount = 0;
+        for (Menu menu : myAllOrderedMenus.keySet()) {
+            if (menu.isDessert()) {
+                totalDiscount += WEEKDAY_WEEKEND_EVENT_PER_DISCOUNT * myAllOrderedMenus.get(menu);
+            }
+        }
+        return new Price(totalDiscount);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Menu menu : myAllOrderedMenus.keySet()) {
+            stringBuilder.append(menu.getName())
+                    .append(" ")
+                    .append(myAllOrderedMenus.get(menu) + UNIT)
+                    .append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }
