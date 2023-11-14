@@ -11,8 +11,11 @@ public class View {
         this.outputView = outputView;
     }
 
-    public String printIntroMessageAndReceiveVisitDate() {
+    public void printIntroMessage() {
         outputView.printIntroMessage();
+    }
+
+    public String receiveVisitDate() {
         return inputView.receiveInput();
     }
 
