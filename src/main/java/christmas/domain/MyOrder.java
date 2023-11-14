@@ -11,6 +11,7 @@ public class MyOrder {
     private static final Map<Menu, Integer> myAllOrderedMenus = new EnumMap<>(Menu.class);
 
     public MyOrder(String myOrderedMenus) {
+        // 입력값에 대한 검증 필요
         saveMyOrders(myOrderedMenus);
     }
 
@@ -37,6 +38,16 @@ public class MyOrder {
         Integer totalDiscount = 0;
         for (Menu menu : myAllOrderedMenus.keySet()) {
             if (menu.isDessert()) {
+                totalDiscount += WEEKDAY_WEEKEND_EVENT_PER_DISCOUNT * myAllOrderedMenus.get(menu);
+            }
+        }
+        return new Price(totalDiscount);
+    }
+
+    public Price calculateDiscountInWeekEnd() {
+        Integer totalDiscount = 0;
+        for (Menu menu : myAllOrderedMenus.keySet()) {
+            if (menu.isMain()) {
                 totalDiscount += WEEKDAY_WEEKEND_EVENT_PER_DISCOUNT * myAllOrderedMenus.get(menu);
             }
         }
