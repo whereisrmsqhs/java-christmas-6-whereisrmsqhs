@@ -15,8 +15,8 @@ class ChristmasDiscountPolicyTest {
     void calculateChristmasDiscount(Integer date, String expected) {
         December december = December.getInstance();
         ChristmasDiscountPolicy policy = new ChristmasDiscountPolicy();
-
-        Price discount = policy.discount(date, december);
+        MyOrder myOrder = new MyOrder("티본스테이크-1");
+        Price discount = policy.discount(myOrder, date, december);
 
         Assertions.assertThat(discount.convertToOutputType()).isEqualTo(expected);
     }
