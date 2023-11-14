@@ -1,6 +1,6 @@
 package christmas.validation;
 
-import static christmas.constant.ErrorMessage.INVALID_VISIT_DAY_INPUT;
+import static christmas.constant.ErrorMessage.INVALID_INPUT;
 
 public class VisitDateValidation {
 
@@ -9,10 +9,10 @@ public class VisitDateValidation {
         try {
             date = Integer.parseInt(visitDate);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException(INVALID_VISIT_DAY_INPUT);
+            throw new NumberFormatException(INVALID_INPUT);
         }
         if (date < 1 || date > 32) {
-            throw new IllegalArgumentException(INVALID_VISIT_DAY_INPUT);
+            throw new IllegalArgumentException(INVALID_INPUT);
         }
         return false;
     }

@@ -2,7 +2,10 @@ package christmas.controller;
 
 import christmas.domain.*;
 import christmas.service.PlannerService;
+import christmas.validation.VisitDateValidation;
 import christmas.view.View;
+
+import static christmas.constant.ErrorMessage.ERROR;
 
 
 public class PlannerController {
@@ -24,7 +27,7 @@ public class PlannerController {
             previewAllBenefits(myReceipt);
         } catch (Exception e) {
             // 에러 형식 지키면서 출력
-            System.out.println();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -59,8 +62,18 @@ public class PlannerController {
     }
 
     private Integer receiveVisitingDate() {
-        String visitDate = view.printIntroMessageAndReceiveVisitDate();
-        // 여기 입력값인 visitDate에 대한 검증 필요
+        boolean isError = true;
+        String visitDate = null;
+        view.printIntroMessage();
+        while(isError) {
+            try {
+                visitDate = view.receiveVisitDate();
+                isError = VisitDateValidation.validateVisitDate(visitDate);
+            } catch (IllegalArgumentException e) {
+                System.out.println(ERROR + e.getMessage());
+                continue;
+            }
+        }
         return Integer.parseInt(visitDate);
     }
 }
