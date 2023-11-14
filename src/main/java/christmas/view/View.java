@@ -19,8 +19,11 @@ public class View {
         return inputView.receiveInput();
     }
 
-    public String printOrderMenuMessageAndReceiveOrders() {
+    public void printOrderMenuMessage() {
         outputView.printMenuOrderMessage();
+    }
+
+    public String receiveOrder() {
         return inputView.receiveInput();
     }
 

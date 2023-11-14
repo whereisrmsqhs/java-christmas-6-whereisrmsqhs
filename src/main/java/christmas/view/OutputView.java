@@ -41,6 +41,10 @@ public class OutputView {
 
     public void printTotalBenefitsDetail(List<String> eachDiscountInfo) {
         System.out.println(BENEFITS_DETAIL);
+        if (eachDiscountInfo.isEmpty()) {
+            System.out.println(NONE + ENTER);
+            return ;
+        }
         Map<String, String> eachBenefitMap = organizeEachDiscountInfo(eachDiscountInfo);
         for (String key : eachBenefitMap.keySet()) {
             System.out.println(key + MINUS + eachBenefitMap.get(key) + WON_UNIT);
