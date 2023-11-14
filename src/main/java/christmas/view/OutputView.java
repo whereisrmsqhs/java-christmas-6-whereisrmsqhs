@@ -41,11 +41,11 @@ public class OutputView {
 
     public void printTotalBenefitsDetail(List<String> eachDiscountInfo) {
         System.out.println(BENEFITS_DETAIL);
-        if (eachDiscountInfo.isEmpty()) {
+        Map<String, String> eachBenefitMap = organizeEachDiscountInfo(eachDiscountInfo);
+        if (eachBenefitMap.size() == 0) {
             System.out.println(NONE + ENTER);
             return ;
         }
-        Map<String, String> eachBenefitMap = organizeEachDiscountInfo(eachDiscountInfo);
         for (String key : eachBenefitMap.keySet()) {
             System.out.println(key + MINUS + eachBenefitMap.get(key) + WON_UNIT);
         }
@@ -66,7 +66,9 @@ public class OutputView {
 
     public void printTotalBenefit(String totalDiscountAmount) {
         System.out.println(TOTAL_BENEFIT_DETAIL);
-        System.out.println(MINUS + totalDiscountAmount + WON_UNIT + ENTER);
+        if (totalDiscountAmount.equals("0"))
+            System.out.print(MINUS);
+        System.out.println(totalDiscountAmount + WON_UNIT + ENTER);
     }
 
     public void printExpectedPayment(String expectedPayment) {
