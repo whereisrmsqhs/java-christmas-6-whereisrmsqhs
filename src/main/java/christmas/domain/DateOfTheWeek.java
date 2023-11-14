@@ -47,4 +47,8 @@ public enum DateOfTheWeek {
     public boolean isWeekDay() {
         return weekdayType.equals(WEEK_DAYS);
     }
+
+    public boolean isWeekEnd() {
+        return weekdayType.equals(WEEK_ENDS);
+    }
 }
