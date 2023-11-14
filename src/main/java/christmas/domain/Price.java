@@ -1,7 +1,9 @@
 package christmas.domain;
 
+import static christmas.constant.NumbersOrSymbols.PRESERNTATION_THRESHOLD;
+
 public class Price {
-    Integer price;
+    private final Integer price;
 
     public Price(Integer price) {
         this.price = price;
@@ -18,5 +20,30 @@ public class Price {
             }
         }
         return toParsedPrice.reverse().toString();
+    }
+
+    public Integer multiply(Integer multiplicand) {
+        return price * multiplicand;
+    }
+
+    public boolean isHigherThanPresentationThreshold() {
+        return (price >= PRESERNTATION_THRESHOLD);
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public boolean checkDiscountExist() {
+        return price != 0;
+    }
+
+    public Price difference(Price totalDiscountAmount) {
+        return new Price(price - totalDiscountAmount.getPrice());
+    }
+
+    public String add(Price toBeAdd) {
+        Price totalPayment = new Price(price + toBeAdd.getPrice());
+        return totalPayment.convertToOutputType();
     }
 }
