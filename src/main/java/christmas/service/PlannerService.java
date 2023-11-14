@@ -24,14 +24,14 @@ public class PlannerService {
     }
 
     public Price includeChampaigneGift(Price totalAmountBeforeDiscount) {
-        if(totalAmountBeforeDiscount.isHigherThanPresentationThreshold()) {
+        if (totalAmountBeforeDiscount.isHigherThanPresentationThreshold()) {
             return Menu.getChamPaginePrice();
         }
         return new Price(0);
     }
 
-    public Price calculateTotalDiscount(Price christmasEventDiscountAmount, Price weekDayDiscountAmount, 
-                                        Price weekEndDiscountAmount, Price specialDiscountAmount, 
+    public Price calculateTotalDiscount(Price christmasEventDiscountAmount, Price weekDayDiscountAmount,
+                                        Price weekEndDiscountAmount, Price specialDiscountAmount,
                                         Price champaigneAmount) {
         return new Price(christmasEventDiscountAmount.getPrice() + weekDayDiscountAmount.getPrice() +
                 weekEndDiscountAmount.getPrice() + specialDiscountAmount.getPrice() + champaigneAmount.getPrice());

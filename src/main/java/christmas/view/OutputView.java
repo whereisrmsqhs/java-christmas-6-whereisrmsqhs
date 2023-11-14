@@ -44,7 +44,7 @@ public class OutputView {
         Map<String, String> eachBenefitMap = organizeEachDiscountInfo(eachDiscountInfo);
         if (eachBenefitMap.size() == 0) {
             System.out.println(NONE + ENTER);
-            return ;
+            return;
         }
         for (String key : eachBenefitMap.keySet()) {
             System.out.println(key + MINUS + eachBenefitMap.get(key) + WON_UNIT);

@@ -27,6 +27,6 @@ public class December {
     }
 
     public Date findSpecificDate(Integer visitDate) {
-        return allDates.get(visitDate-1);
+        return allDates.get(visitDate - 1);
     }
 }

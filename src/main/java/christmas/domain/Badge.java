@@ -18,8 +18,8 @@ public enum Badge {
 
     public static Badge calculateObatainableBadge(Price totalDiscountAmount) {
         Badge tobeReturned = NONE;
-        for(Badge badge : values()) {
-            if(totalDiscountAmount.getPrice() > badge.getAcquiredPrice()) {
+        for (Badge badge : values()) {
+            if (totalDiscountAmount.getPrice() > badge.getAcquiredPrice()) {
                 tobeReturned = badge;
             }
         }

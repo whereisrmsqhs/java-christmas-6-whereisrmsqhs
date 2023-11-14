@@ -13,7 +13,7 @@ public class Price {
         String toConvertedPrice = String.valueOf(price);
         StringBuilder toParsedPrice = new StringBuilder();
 
-        for(int i = toConvertedPrice.length() - 1; i >= 0; i--) {
+        for (int i = toConvertedPrice.length() - 1; i >= 0; i--) {
             toParsedPrice.append(toConvertedPrice.charAt(i));
             if (i >= 1 && (toConvertedPrice.length() - i) % 3 == 0) {
                 toParsedPrice.append(",");

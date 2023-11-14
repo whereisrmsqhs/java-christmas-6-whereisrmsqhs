@@ -14,7 +14,7 @@ public class MyOrder {
     private static final Map<Menu, Integer> myAllOrderedMenus = new EnumMap<>(Menu.class);
 
     public MyOrder(String myOrderedMenus) {
-        try{
+        try {
             saveMyOrders(myOrderedMenus);
             validateIsAllDrinks();
             validateTotalNumberOfFood();
@@ -50,7 +50,7 @@ public class MyOrder {
             try {
                 Menu myOrderedFood = findMyMenu(eachOrder.substring(0, dashIndex));
                 MyOrderValidation.validateFood(myOrderedFood, myAllOrderedMenus);
-                Integer myOrderFoodNumber = Integer.valueOf(eachOrder.substring(dashIndex+1));
+                Integer myOrderFoodNumber = Integer.valueOf(eachOrder.substring(dashIndex + 1));
                 MyOrderValidation.validateOrderNumber(myOrderFoodNumber);
                 myAllOrderedMenus.put(myOrderedFood, myOrderFoodNumber);
             } catch (IllegalArgumentException e) {

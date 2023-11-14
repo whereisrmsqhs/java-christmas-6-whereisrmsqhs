@@ -22,6 +22,7 @@ public class Date {
     public Integer dateFarFromChristmas() {
         return 25 - day;
     }
+
     public boolean isWeekDay() {
         return dateOfTheWeek.isWeekDay();
     }

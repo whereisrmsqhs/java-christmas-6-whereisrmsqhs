@@ -2,7 +2,7 @@ package christmas.domain;
 
 import static christmas.constant.NumbersOrSymbols.SPECIAL_DISCOUNT_AMOUNT;
 
-public class SpecialDiscountPolicy implements DiscountPolicy{
+public class SpecialDiscountPolicy implements DiscountPolicy {
 
     @Override
     public Price discount(MyOrder myOrder, Integer visitDate, December december) {

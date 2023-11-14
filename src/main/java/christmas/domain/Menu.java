@@ -44,6 +44,7 @@ public enum Menu {
     public Integer calculateEachMenuAmount(Integer orderNum) {
         return price.multiply(orderNum);
     }
+
     public boolean isDessert() {
         return (type.equals(DESSERT));
     }
