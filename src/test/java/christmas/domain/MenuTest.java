@@ -2,6 +2,7 @@ package christmas.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -16,6 +17,16 @@ class MenuTest {
         Menu myMenu = Menu.findMyMenu(inputFood);
 
         Assertions.assertThat(myMenu).isEqualTo(convertedFood);
+    }
+
+    @Test
+    @DisplayName("음료가 아니면 true, 음료면 false 리턴")
+    void isItDrink() {
+        boolean notDrink = Menu.BBQ_RIBS.isNotDrink();
+        boolean isDrink = Menu.CHAMPAGNE.isNotDrink();
+
+        Assertions.assertThat(notDrink).isEqualTo(true);
+        Assertions.assertThat(isDrink).isEqualTo(false);
     }
 
 }
