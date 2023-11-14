@@ -25,4 +25,12 @@ public class Date {
     public boolean isWeekDay() {
         return dateOfTheWeek.isWeekDay();
     }
+
+    public boolean isWeekEnd() {
+        return dateOfTheWeek.isWeekEnd();
+    }
+
+    public boolean isSpecial() {
+        return specialDiscount;
+    }
 }
