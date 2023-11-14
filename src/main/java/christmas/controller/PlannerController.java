@@ -2,7 +2,7 @@ package christmas.controller;
 
 import christmas.domain.*;
 import christmas.service.PlannerService;
-import christmas.validation.VisitDateValidation;
+import christmas.validation.*;
 import christmas.view.View;
 
 import static christmas.constant.ErrorMessage.ERROR;
@@ -19,16 +19,11 @@ public class PlannerController {
     }
 
     public void run() {
-        try {
-            Integer visitDate = receiveVisitingDate();
-            MyOrder myOrder = receiveMenuOrders();
-            MyRequirement myRequirement = new MyRequirement(myOrder, visitDate);
-            Receipt myReceipt = calculateAllBenefits(myRequirement);
-            previewAllBenefits(myReceipt);
-        } catch (Exception e) {
-            // 에러 형식 지키면서 출력
-            System.out.println(e.getMessage());
-        }
+        Integer visitDate = receiveVisitingDate();
+        MyOrder myOrder = receiveMenuOrders();
+        MyRequirement myRequirement = new MyRequirement(myOrder, visitDate);
+        Receipt myReceipt = calculateAllBenefits(myRequirement);
+        previewAllBenefits(myReceipt);
     }
 
     private void previewAllBenefits(Receipt myReceipt) {
@@ -37,6 +32,9 @@ public class PlannerController {
 
     private Receipt calculateAllBenefits(MyRequirement requirement) {
         Price totalAmountBeforeDiscount = requirement.calculateTotalAmountBeforeDiscount();
+        if (totalAmountBeforeDiscount.lessThanMinimumPrice()) {
+            return noEventAppliedReceipt(requirement, totalAmountBeforeDiscount);
+        }
         Result eachDiscountAmount = getEachDiscount(requirement, totalAmountBeforeDiscount);
         Price totalDiscountAmount = service.calculateTotalDiscount(eachDiscountAmount.christmasEventDiscountAmount(),
                 eachDiscountAmount.weekDayDiscountAmount(),
@@ -44,6 +42,14 @@ public class PlannerController {
                 eachDiscountAmount.champaigneAmount());
         Badge eventBadge = service.calculateBadge(totalDiscountAmount);
         return new Receipt(requirement, totalAmountBeforeDiscount, eachDiscountAmount, totalDiscountAmount, eventBadge);
+    }
+
+    private Receipt noEventAppliedReceipt(MyRequirement requirement, Price totalAmountBeforeDiscount) {
+        Price noEventDiscount = new Price(0);
+        Result noDiscountResult = new Result(noEventDiscount, noEventDiscount, noEventDiscount
+                , noEventDiscount, noEventDiscount);
+        return new Receipt(requirement, totalAmountBeforeDiscount, noDiscountResult
+                , noEventDiscount, Badge.NONE);
     }
 
     private Result getEachDiscount(MyRequirement requirement, Price totalAmountBeforeDiscount) {
@@ -57,21 +63,33 @@ public class PlannerController {
     }
 
     private MyOrder receiveMenuOrders() {
-        String myOrderedFoods = view.printOrderMenuMessageAndReceiveOrders();
-        return new MyOrder(myOrderedFoods);
+        boolean isError = true;
+        String myOrderedFoods = null;
+        MyOrder myOrder = null;
+        view.printOrderMenuMessage();
+        while (isError) {
+            try {
+                myOrderedFoods = view.receiveOrder();
+                MyOrderValidation.validateOrderInfo(myOrderedFoods);
+                myOrder = new MyOrder(myOrderedFoods);
+                isError = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return myOrder;
     }
 
     private Integer receiveVisitingDate() {
         boolean isError = true;
         String visitDate = null;
         view.printIntroMessage();
-        while(isError) {
+        while (isError) {
             try {
                 visitDate = view.receiveVisitDate();
                 isError = VisitDateValidation.validateVisitDate(visitDate);
             } catch (IllegalArgumentException e) {
                 System.out.println(ERROR + e.getMessage());
-                continue;
             }
         }
         return Integer.parseInt(visitDate);
