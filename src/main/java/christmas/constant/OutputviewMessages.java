@@ -22,5 +22,6 @@ public class OutputviewMessages {
     public static final String GIFT_EVENT_DISCOUNT = "증정 이벤트: ";
     public static final String MINUS = "-";
     public static final String ENTER = "\n";
+    public static final String NONE = "없음";
 
 }
