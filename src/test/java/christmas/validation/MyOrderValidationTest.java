@@ -1,9 +1,16 @@
 package christmas.validation;
 
+import christmas.domain.Menu;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 
 class MyOrderValidationTest {
 
@@ -14,5 +21,21 @@ class MyOrderValidationTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             MyOrderValidation.validateOrderInfo(input);
         });
+    }
+
+    @ParameterizedTest
+    @MethodSource("generateMenuAndMap")
+    @DisplayName("다음 저장해야할 음식 검증, 중복 입력시 에러")
+    void validateDuplicateFoodOrder(Menu menu, Map<Menu, Integer> map) {
+        map.put(Menu.SEAFOOD_PASTA, 1);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            MyOrderValidation.validateFood(menu, map);
+        });
+    }
+
+    static Stream<Arguments> generateMenuAndMap() {
+        return Stream.of(
+                Arguments.of(Menu.SEAFOOD_PASTA, new HashMap<Menu, Integer>())
+        );
     }
 }
