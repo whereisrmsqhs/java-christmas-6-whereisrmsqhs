@@ -46,4 +46,8 @@ public class Price {
         Price totalPayment = new Price(price + toBeAdd.getPrice());
         return totalPayment.convertToOutputType();
     }
+
+    public boolean lessThanMinimumPrice() {
+        return price < 10000;
+    }
 }
