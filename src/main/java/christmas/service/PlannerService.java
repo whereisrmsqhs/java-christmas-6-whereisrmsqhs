@@ -29,4 +29,15 @@ public class PlannerService {
         }
         return new Price(0);
     }
+
+    public Price calculateTotalDiscount(Price christmasEventDiscountAmount, Price weekDayDiscountAmount, 
+                                        Price weekEndDiscountAmount, Price specialDiscountAmount, 
+                                        Price champaigneAmount) {
+        return new Price(christmasEventDiscountAmount.getPrice() + weekDayDiscountAmount.getPrice() +
+                weekEndDiscountAmount.getPrice() + specialDiscountAmount.getPrice() + champaigneAmount.getPrice());
+    }
+
+    public Badge calculateBadge(Price totalDiscountAmount) {
+        return Badge.calculateObatainableBadge(totalDiscountAmount);
+    }
 }
