@@ -1,8 +1,11 @@
 package christmas.domain;
 
+import christmas.validation.MyOrderValidation;
+
 import java.util.EnumMap;
 import java.util.Map;
 
+import static christmas.constant.ErrorMessage.*;
 import static christmas.constant.NumbersOrSymbols.*;
 import static christmas.domain.Menu.findMyMenu;
 
@@ -11,18 +14,48 @@ public class MyOrder {
     private static final Map<Menu, Integer> myAllOrderedMenus = new EnumMap<>(Menu.class);
 
     public MyOrder(String myOrderedMenus) {
-        // 입력값에 대한 검증 필요
-        saveMyOrders(myOrderedMenus);
+        try{
+            saveMyOrders(myOrderedMenus);
+            validateIsAllDrinks();
+            validateTotalNumberOfFood();
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
+    }
+
+    private void validateTotalNumberOfFood() {
+        Integer numberOfMenus = 0;
+        for (Integer value : myAllOrderedMenus.values()) {
+            numberOfMenus += value;
+        }
+        if (numberOfMenus >= 21)
+            throw new IllegalArgumentException(ERROR + INVALID_INPUT);
+    }
+
+    private void validateIsAllDrinks() {
+        boolean isNonDrinkMenu = false;
+        for (Menu menu : myAllOrderedMenus.keySet()) {
+            if (menu.isNotDrink()) {
+                isNonDrinkMenu = true;
+                return;
+            }
+        }
+        throw new IllegalArgumentException(ERROR + ONLY_DRINKS);
     }
 
     private void saveMyOrders(String myOrderedMenus) {
         String[] eachFoodOrder = myOrderedMenus.split(DIVIDE_EACH_ORDERED_MENU);
         for (String eachOrder : eachFoodOrder) {
             int dashIndex = eachOrder.indexOf(DIVIDE_FOOD_NUMBER);
-            Menu myOrderedFood = findMyMenu(eachOrder.substring(0, dashIndex));
-            Integer myOrderFoodNumber = Integer.valueOf(eachOrder.substring(dashIndex+1));
-
-            myAllOrderedMenus.put(myOrderedFood, myOrderFoodNumber);
+            try {
+                Menu myOrderedFood = findMyMenu(eachOrder.substring(0, dashIndex));
+                MyOrderValidation.validateFood(myOrderedFood, myAllOrderedMenus);
+                Integer myOrderFoodNumber = Integer.valueOf(eachOrder.substring(dashIndex+1));
+                MyOrderValidation.validateOrderNumber(myOrderFoodNumber);
+                myAllOrderedMenus.put(myOrderedFood, myOrderFoodNumber);
+            } catch (IllegalArgumentException e) {
+                throw e;
+            }
         }
     }
 

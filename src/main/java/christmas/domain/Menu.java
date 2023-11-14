@@ -55,4 +55,8 @@ public enum Menu {
     public static Price getChamPaginePrice() {
         return CHAMPAGNE.price;
     }
+
+    public boolean isNotDrink() {
+        return !type.equals(DRINK);
+    }
 }

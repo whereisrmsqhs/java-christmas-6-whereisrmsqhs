@@ -17,8 +17,9 @@ public class MyOrderValidation {
     }
 
     public static void validateFood(Menu myOrderedFood, Map<Menu, Integer> myAllOrderedMenus) {
-        if (myOrderedFood.equals(null)) throw new IllegalArgumentException(ERROR + INVALID_INPUT);
-        if (!myAllOrderedMenus.get(myOrderedFood).equals(null))
+        if (myOrderedFood == null) throw new IllegalArgumentException(ERROR + INVALID_INPUT);
+        if (myAllOrderedMenus == null) return;
+        if (!(myAllOrderedMenus.get(myOrderedFood) == null))
             throw new IllegalArgumentException(ERROR + INVALID_INPUT);
     }
 
