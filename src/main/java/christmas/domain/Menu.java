@@ -8,8 +8,8 @@ import static christmas.constant.MenuCategory.*;
 
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", new Price(6000), APPETIZER),
-    TAPAS("양송이수프", new Price(5500), APPETIZER),
-    CAESAR_SALAD("양송이수프", new Price(8000), APPETIZER),
+    TAPAS("타파스", new Price(5500), APPETIZER),
+    CAESAR_SALAD("시저샐러드", new Price(8000), APPETIZER),
     T_BONE_STEAK("티본스테이크", new Price(55000), MAIN),
     BBQ_RIBS("바비큐립", new Price(54000), MAIN),
     SEAFOOD_PASTA("해산물파스타", new Price(35000), MAIN),
@@ -39,5 +39,20 @@ public enum Menu {
                 .filter(menu -> menu.getName().equals(myOrderedFood))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public Integer calculateEachMenuAmount(Integer orderNum) {
+        return price.multiply(orderNum);
+    }
+    public boolean isDessert() {
+        return (type.equals(DESSERT));
+    }
+
+    public boolean isMain() {
+        return (type.equals(MAIN));
+    }
+
+    public static Price getChamPaginePrice() {
+        return CHAMPAGNE.price;
     }
 }
