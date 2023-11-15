@@ -1,6 +1,5 @@
 package christmas.controller;
 
-import camp.nextstep.edu.missionutils.Console;
 import christmas.domain.*;
 import christmas.service.PlannerService;
 import christmas.validation.*;
