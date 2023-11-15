@@ -1,6 +1,8 @@
 package christmas.constant;
 
 public class NumbersOrSymbols {
+
+    private NumbersOrSymbols() {}
     public static String DIVIDE_EACH_ORDERED_MENU = ",";
     public static String COLON = ":";
     public static String DIVIDE_FOOD_NUMBER = "-";

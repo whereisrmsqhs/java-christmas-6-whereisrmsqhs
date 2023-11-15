@@ -88,7 +88,6 @@ public class PlannerController {
         while (isError) {
             try {
                 visitDate = view.receiveVisitDate();
-                System.out.println(visitDate);
                 isError = VisitDateValidation.validateVisitDate(visitDate);
             } catch (IllegalArgumentException e) {
                 System.out.println(ERROR + e.getMessage());

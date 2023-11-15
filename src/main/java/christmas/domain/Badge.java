@@ -1,7 +1,5 @@
 package christmas.domain;
 
-import java.util.Arrays;
-
 public enum Badge {
     NONE("없음", new Price(0)),
     STAR("별", new Price(5000)),
@@ -28,10 +26,6 @@ public enum Badge {
 
     public String getBadgeName() {
         return badgeName;
-    }
-
-    public boolean isAvailableAnyBadge(Price totalDiscountAmount) {
-        return acquiredCondition.getPrice() >= 5000;
     }
 
     public Integer getAcquiredPrice() {

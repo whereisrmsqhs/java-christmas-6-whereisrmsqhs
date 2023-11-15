@@ -4,6 +4,8 @@ import static christmas.constant.ErrorMessage.INVALID_DAY_INPUT;
 
 public class VisitDateValidation {
 
+    private VisitDateValidation() {}
+
     public static boolean validateVisitDate(String visitDate) {
         int date;
         try {

@@ -9,6 +9,8 @@ import static christmas.constant.ErrorMessage.ERROR;
 import static christmas.constant.ErrorMessage.INVALID_INPUT;
 
 public class MyOrderValidation {
+
+    private MyOrderValidation() {}
     public static void validateOrderInfo(String myOrderedFoods) {
         String pattern = "([가-힣]+-\\d+)(,([가-힣]+-\\d+))*";
         boolean isMatch = Pattern.matches(pattern, myOrderedFoods);
@@ -19,8 +21,7 @@ public class MyOrderValidation {
     public static void validateFood(Menu myOrderedFood, Map<Menu, Integer> myAllOrderedMenus) {
         if (myOrderedFood == null) throw new IllegalArgumentException(ERROR + INVALID_INPUT);
         if (myAllOrderedMenus == null) return;
-        if (!(myAllOrderedMenus.get(myOrderedFood) == null)) {
-            System.out.println(myAllOrderedMenus.get(myOrderedFood));
+        if ((myAllOrderedMenus.get(myOrderedFood) != null)) {
             throw new IllegalArgumentException(ERROR + INVALID_INPUT);
         }
     }
