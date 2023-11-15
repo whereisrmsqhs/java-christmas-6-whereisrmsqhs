@@ -1,5 +1,6 @@
 package christmas;
 
+import camp.nextstep.edu.missionutils.Console;
 import christmas.controller.PlannerController;
 import christmas.service.PlannerService;
 import christmas.view.InputView;
